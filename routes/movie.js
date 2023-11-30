@@ -16,6 +16,7 @@ moviesRouter.post('/movies', celebrate({
     country: Joi.string().required(),
     director: Joi.string().required(),
     duration: Joi.number().required(),
+    year: Joi.string().required(),
     description: Joi.string().required(),
     image: Joi.string().required().regex(URL_REGEX),
     trailerLink: Joi.string().required().regex(URL_REGEX),
@@ -26,9 +27,9 @@ moviesRouter.post('/movies', celebrate({
   }),
 }), createMovie);
 
-moviesRouter.delete('/movies/:moviesId/', celebrate({
+moviesRouter.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().alphanum().hex().length(24),
+    movieId: Joi.string().alphanum().hex(),
   }),
 }), deleteMovieById);
 

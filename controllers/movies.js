@@ -15,7 +15,7 @@ const createMovie = (req, res, next) => {
     country, director,
     duration, year,
     description, image,
-    trailer, nameRU, nameEN,
+    trailerLink, nameRU, nameEN,
     thumbnail, movieId,
   } = req.body;
   const owner = req.user._id;
@@ -27,7 +27,7 @@ const createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -49,7 +49,7 @@ const createMovie = (req, res, next) => {
 function deleteMovieById(req, res, next) {
   Movie.findById(req.params.movieId)
     .orFail(() => {
-      throw new NotExistErr('Карточка указанным id не найдена');
+      throw new NotExistErr('Фильм с указанным id не найден');
     })
     .then((movie) => {
       if (req.user._id !== movie.owner.toString()) {
@@ -61,7 +61,7 @@ function deleteMovieById(req, res, next) {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestErr('Неправильный id карточки'));
+        next(new BadRequestErr('Неправильный id фильма'));
       } else {
         next(err);
       }
