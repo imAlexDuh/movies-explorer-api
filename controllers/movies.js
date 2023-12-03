@@ -5,7 +5,8 @@ const NotExistErr = require('../errors/NotExistErr');
 const DelMovieErr = require('../errors/DelMovieErr');
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
+  const owner = req.user._id;
+  Movie.find({ owner })
     .then((movies) => res.send({ movies }))
     .catch(next);
 };
@@ -55,7 +56,7 @@ function deleteMovieById(req, res, next) {
       if (req.user._id !== movie.owner.toString()) {
         throw new DelMovieErr('Нельзя удалять чужие фильмы');
       }
-      Movie.findByIdAndRemove(req.params.movieId)
+      Movie.findByIdAndDelete(req.params.movieId)
         .then((removeMovie) => res.status(200).send({ removeMovie }))
         .catch(next);
     })

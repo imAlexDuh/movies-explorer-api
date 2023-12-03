@@ -29,7 +29,9 @@ function updateUserProfile(req, res, next) {
       return res.send({ user });
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.code === 11000) {
+        next(new ExistingEmailErr('Пользователь с такой почтой уже существует'));
+      } else if (err.name === 'ValidationError') {
         return next(new BadRequestErr('Переданы некорректные данные при обновлении пользователя'));
       }
       return next(err);
