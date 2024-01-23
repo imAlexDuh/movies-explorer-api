@@ -3,6 +3,8 @@ const allowedCors = [
   'http://localhost:3001',
   'https://api.imalexdudie.nomoredomainsmonster.ru/',
   'http://api.imalexdudie.nomoredomainsmonster.ru/',
+  'https://imalexdudie.nomoredomainsmonster.ru/',
+  'http://imalexdudie.nomoredomainsmonster.ru/',
 ];
 
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
